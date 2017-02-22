@@ -23,13 +23,15 @@ public class TCPClientSuma {
      * @throws IOException 
      */
     public TCPClientSuma(String host, int port) throws IOException {
-
+        //Inicialitzem el Sokcet
         this.ss = new Socket(host, port);
+        //Inicialitzem el DataOutput.. I el Buffer
         outToServer = new DataOutputStream(ss.getOutputStream());
         bf = new BufferedReader(new InputStreamReader(ss.getInputStream()));
-
+        //Demanem el primer i segon nombre que volem
         String num1 = JOptionPane.showInputDialog(null, "Dona el primer numero: ","Entrando",3);
         String num2 = JOptionPane.showInputDialog(null, "Dona el segon numero: ", "Entrando",3);
+        //Escribim i enviem al Server els dos numeros, pero abans es parsean.
         outToServer.writeInt(Integer.parseInt(num1));
         outToServer.writeInt(Integer.parseInt(num2));
         bf.close();
@@ -37,7 +39,11 @@ public class TCPClientSuma {
         ss.close();
 
     }
-    
+    /**
+     * Metode main on inicialitzem la clase TCPClientSuma
+     * @param args
+     * @throws IOException 
+     */
     public static void main(String[] args) throws IOException{
         new TCPClientSuma(HOST, PORT);
     }
